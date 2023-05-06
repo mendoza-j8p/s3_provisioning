@@ -13,23 +13,15 @@ s3_resource = session.resource('s3')
 
 
 # Manipulación de objetos de Amazon S3
-
 # Genera un nombre aleatorio para el bucket
 bucket_name = 'my-bucket-' + ''.join(random.choices(string.ascii_lowercase, k=8))
 
 # Creación de un nuevo bucket
 response = s3.create_bucket(Bucket=bucket_name, CreateBucketConfiguration={'LocationConstraint': 'eu-west-2'})
 
-# Carga de un archivo a un bucket de Amazon S3
-s3.upload_file('file.txt', bucket_name, 'file.txt')
+bucket = s3_resource.Bucket(bucket_name)
 
-response = s3.list_objects_v2(Bucket=bucket_name)
-print(response)
-
-# Descarga de un archivo de un bucket de Amazon S3
-try:
-    s3.download_file(bucket_name, 'file.txt', './tmp/file1.txt')
-    print("Archivo descargado correctamente en '/tmp/'")
-except Exception as e:
-    print(f"Error al descargar el archivo: {str(e)}")
+print(f"Bucket {bucket_name} creado exitosamente")
+print(f"Nombre del bucket: {bucket_name}")
+print(f"Fecha de creación: {bucket.creation_date}")
 

@@ -19,7 +19,10 @@ for bucket in buckets:
             for obj in objects['Contents']:
                 delete_keys['Objects'].append({'Key': obj['Key']})
             s3.delete_objects(Bucket=bucket, Delete=delete_keys)
+            print(f"Contenido del bucket {bucket} eliminado correctamente")
+        else:
+            print(f"El bucket {bucket} está vacío, se procederá a eliminar")
         s3.delete_bucket(Bucket=bucket)
         print(f"Bucket {bucket} eliminado correctamente")
     except s3.exceptions.BucketNotEmpty:
-        print(f"El bucket {bucket} tiene contenido, no se puede eliminar")
+        print(f"El bucket {bucket} no está vacío, no se puede eliminar")
