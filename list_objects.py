@@ -7,7 +7,7 @@ session = get_session()
 s3 = session.client('s3')
 
 # Nombre del bucket
-bucket_name = 'my-bucket-wehpijhg'
+bucket_name = 'my-bucket'
 
 # Obtener la lista de objetos
 objects = s3.list_objects_v2(Bucket=bucket_name)
